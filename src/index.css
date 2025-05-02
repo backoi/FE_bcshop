@@ -1,0 +1,93 @@
+@import "tailwindcss";
+@import "swiper/css";
+@import "swiper/css/pagination";
+@import "swiper/css/navigation";
+
+#root {
+  box-sizing: border-box !important;
+}
+/* .swiper {
+  width: 100% !important;
+  height: 100% !important;
+}
+.swiper-slide {
+  width: auto !important;
+} */
+.bg-image-text {
+  background-image: url("https://images.unsplash.com/photo-1707345512638-997d31a10eaa");
+  background-size: cover;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+.cart-item-enter {
+  opacity: 0;
+  transform: translateX(-20px);
+}
+.cart-item-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: all 300ms ease-out;
+}
+.cart-item-exit {
+  opacity: 1;
+}
+.cart-item-exit-active {
+  opacity: 0;
+  transform: translateX(20px);
+  transition: all 300ms ease-out;
+}
+.scale-hover:hover {
+  transform: scale(1.02);
+  transition: transform 0.3s ease;
+}
+
+.article-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+.pagination-item.active {
+  background-color: #3b82f6;
+  color: white;
+}
+.category-dropdown:hover .dropdown-content {
+  display: block;
+}
+.dropdown-content {
+  display: none;
+  animation: fadeIn 0.3s;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* help page */
+.accordion-item {
+  border-bottom: 1px solid #e5e7eb;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+.accordion-header {
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.accordion-header:hover {
+  background-color: #f9fafb;
+}
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+.accordion-content.show {
+  max-height: 500px;
+}
+.search-box:focus {
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+}
