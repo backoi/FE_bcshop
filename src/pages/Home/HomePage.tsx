@@ -1,28 +1,18 @@
 import "swiper/swiper-bundle.css";
-//them popup
-import { Link } from "react-router-dom";
-import { Navigation, Pagination } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
+//hoàn thiện các clock giao diện
 import { useEffect, useState } from "react";
-import CategoryItem from "../../components/ui/CategoryItem";
-import ProductItem from "../../components/ui/ProductItem";
-import Sidebar from "../../components/ui/Sidebar";
-import CardItem from "../../components/ui/CardItem";
+import CategoryItem from "../../components/ui/Product/CategoryItem";
 import { productService } from "../../services/ProductService";
 import PromotionSection from "../../components/ui/PromotionSection";
-import HomeSlider from "../../components/ui/HomeSlider";
-import CreativeBanner from "../../components/ui/Banner";
-import BlogCarousel from "../../components/ui/BlogCarosel";
+import HomeSlider from "../../components/ui/Slider/HomeSlider";
+import CreativeBanner from "../../components/ui/Blog/Banner";
+import BlogCarousel from "../../components/ui/Blog/BlogCarosel";
+import ProductCarousel from "../../components/ui/Slider/ProductCarosel";
+import TitleSection from "../../components/ui/TitleSection";
 //https://theme.hstatic.net/200000417685/1001040197/14/small_banner_left.jpg?v=1169
 //https://theme.hstatic.net/200000417685/1001040197/14/small_banner_center.jpg?v=1169
 //https://theme.hstatic.net/200000417685/1001040197/14/small_banner_right.jpg?v=1169
-const HomePage = ({}: {
-  isSidebarOpen: boolean;
-
-  handleMouseEnter: () => void;
-  handleMouseLeave: () => void;
-  toggleSidebar: () => void;
-}) => {
+const HomePage = () => {
   const [listProducts, setListProducts] = useState([]);
   const categories = [
     {
@@ -71,10 +61,21 @@ const HomePage = ({}: {
   useEffect(() => {
     //fetchProducts();
   }, []);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isHovering, setIsHovering] = useState(true);
+  const handleMouseEnter = () => {
+    setIsHovering(true);
+  };
+  const handleMouseLeave = () => {
+    setIsHovering(false);
+  };
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
   return (
     <div className="flex flex-col w-full h-full items-center justify-center text-3xl font-bold relative">
       <HomeSlider />
-      <BlogCarousel />
+
       {/* 4 5 danh muc */}
       <div className="flex justify-center w-full gap-4 ">
         {categories.map((category) => (
@@ -111,57 +112,15 @@ const HomePage = ({}: {
       </div>
       {/* ban chay nhat/giam gia trong tuan thêm đếm thời gian*/}
       <div className=" flex flex-col gap-4 w-full p-4">
-        <h3 className="text-sm md:text-2xl">Giảm giá sóc trong ngày</h3>
+        <TitleSection />
 
-        <div className="bg-gray-800 p-3  text-white flex justify-between items-center">
-          <Swiper
-            spaceBetween={20}
-            slidesPerView={5}
-            navigation
-            pagination={{ clickable: true }}
-            breakpoints={{
-              // when window width is >= 320px
-              320: {
-                slidesPerView: 1,
-                spaceBetween: 10,
-              },
-              // when window width is >= 640px
-              640: {
-                slidesPerView: 2,
-                spaceBetween: 15,
-              },
-              // when window width is >= 768px
-              768: {
-                slidesPerView: 3,
-                spaceBetween: 15,
-              },
-              // when window width is >= 1024px
-              1024: {
-                slidesPerView: 4,
-                spaceBetween: 20,
-              },
-              // when window width is >= 1280px
-              1280: {
-                slidesPerView: 5,
-                spaceBetween: 20,
-              },
-            }}
-            className="max-w-[1280px] h-full"
-            modules={[Navigation]}
-          >
-            {listProducts.map((product, index) => (
-              <SwiperSlide key={index} className="">
-                <CardItem product={product} />
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </div>
+        <ProductCarousel seemore="Xem tất cả giảm giá" />
       </div>
       {/* footer frê ship/đổi hàng/bao hanh */}
       {/* tin tuc */}
       {/* footer */}
       <CreativeBanner />
-
+      <BlogCarousel />
       <PromotionSection />
     </div>
   );

@@ -1,4 +1,4 @@
-import CardItem from "./CardItem";
+import CardItem from "../Product/CardItem";
 
 const ProductScroll = () => {
   const products = [
@@ -87,9 +87,9 @@ const ProductScroll = () => {
     },
   ];
   return (
-    <div className="flex flex-col gap-4 w-full h-[600px] overflow-hidden rounded shadow-md">
-      <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold">Products</h2>
+    <div className="flex flex-col gap-4 w-full h-[1000px] overflow-hidden rounded shadow-md">
+      <div className="flex items-center justify-between mt-4 p-4">
+        <h2 className="text-2xl font-bold">Sản phẩm tương tự</h2>
       </div>
       <div className="flex flex-col gap-4 overflow-y-auto h-full">
         {products.map((product) => (

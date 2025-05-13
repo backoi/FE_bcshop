@@ -15,51 +15,35 @@ import NewsPage from "./pages/News/NewsPage";
 import NewsPage1 from "./pages/News/NewsPage1";
 import CategoryPagev2 from "./pages/Product/CategoryPagev2";
 import ModelKitDetails from "./pages/Product/ChiTietDeepseek";
+import ProductDetailPage from "./pages/Product/ChiTiet";
+import ModelKitDetailPage from "./pages/Product/DetailProduct";
+import PostDetail from "./pages/News/PostDetail";
 
 function MainLayout() {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [isHovering, setIsHovering] = useState(true);
-  const handleMouseEnter = () => {
-    setIsHovering(true);
-  };
-  const handleMouseLeave = () => {
-    setIsHovering(false);
-  };
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
   return (
     <>
-      <Header
-        toggleSidebar={toggleSidebar}
-        isHovering={isHovering}
-        handleMouseEnter={handleMouseEnter}
-        handleMouseLeave={handleMouseLeave}
-      />
+      <Header />
       <Routes>
-        <Route
-          path="/"
-          element={
-            <HomePage
-              handleMouseEnter={handleMouseEnter}
-              handleMouseLeave={handleMouseLeave}
-              isSidebarOpen={isSidebarOpen}
-              toggleSidebar={toggleSidebar}
-            />
-          }
-        />
+        <Route path="/" element={<HomePage />} />
 
         <Route path="/product" element={<ProductPage />} />
         {/* Private Route */}
         <Route element={<PrivateRoute />}>
           <Route path="/about" element={<AboutPage />} />
         </Route>
+
+        <Route path="/collections" element={<CategoryPagev2 />} />
         <Route path="/collections/:category" element={<CategoryPagev2 />} />
+
         <Route path="/cart" element={<CartPage />} />
         <Route path="/assemble-tool" element={<CartPage />} />
         <Route path="/news" element={<NewsPage />} />
+        <Route path="/news/:blogId" element={<PostDetail />} />
         <Route path="/news1" element={<NewsPage1 />} />
         <Route path="/chitiet" element={<ModelKitDetails />} />
+        <Route path="/chitiet2" element={<ModelKitDetailPage />} />
+        <Route path="/chitiet1" element={<ProductDetailPage />} />
+        <Route path="/*" element={<> Không tìm thấy trang </>} />
       </Routes>
       <Footer />
     </>

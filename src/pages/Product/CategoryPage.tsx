@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import CardItem from "../../components/ui/CardItem";
-import Selection from "../../components/ui/Selection";
+import CardItem from "../../components/ui/Product/CardItem";
+import Selection from "../../components/ui/Common/Selection";
 import { productService } from "../../services/ProductService";
 import { useParams } from "react-router-dom";
 //tiep tuc loc

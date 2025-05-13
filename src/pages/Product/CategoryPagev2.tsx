@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { FaRedo, FaFilter, FaSearch } from "react-icons/fa";
-import CardItem from "../../components/ui/CardItem";
+import CardItem from "../../components/ui/Product/CardItem";
 import { productService } from "../../services/ProductService";
-import Selection from "../../components/ui/Selection";
+import Selection from "../../components/ui/Common/Selection";
+//using
 //refactor style
+import { products } from "../../products";
+
 const CategoryPagev2 = () => {
   const categories = [
     // { id: "1", name: "", label: "Tất cả sản phẩm" },
@@ -14,7 +17,7 @@ const CategoryPagev2 = () => {
     { id: "6", name: "cheap-assemble", label: "Mô hình Giá rẻ" },
     { id: "7", name: "assemble-tool", label: "Dụng cụ lắp ráp" },
   ];
-  const [listProducts, setListProducts] = useState([]);
+  const [listProducts, setListProducts] = useState(products);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   // State for filters
   const [filters, setFilters] = useState({
@@ -138,9 +141,9 @@ const CategoryPagev2 = () => {
     setSelectedCategories([]);
   };
 
-  useEffect(() => {
-    fetchProducts();
-  }, [filters]);
+  // useEffect(() => {
+  //   fetchProducts();
+  // }, [filters]);
   return (
     <div className="bg-gray-50 min-h-screen">
       <div className="container mx-auto px-4 py-8">
@@ -222,7 +225,7 @@ const CategoryPagev2 = () => {
           {listProducts.length > 0 ? (
             listProducts.map((prod: any) => {
               return (
-                <div key={prod._id} className="col-span-1">
+                <div key={prod.productId} className="col-span-1">
                   <CardItem product={prod} />
                 </div>
               );

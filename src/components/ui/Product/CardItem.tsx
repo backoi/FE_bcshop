@@ -1,52 +1,8 @@
-// import { useState } from "react";
-
-// const CardItem = () => {
-//   const [isHovering, setIsHovering] = useState(false);
-//   const handleMouseEnter = () => {
-//     setIsHovering(true);
-//   };
-//   const handleMouseLeave = () => {
-//     setIsHovering(false);
-//   };
-//   return (
-//     <div
-//       onMouseEnter={handleMouseEnter}
-//       onMouseLeave={handleMouseLeave}
-//       className="bg-white flex flex-col rounded-lg shadow-md overflow-hidden h-full relative"
-//     >
-//       <div className="absolute top-0 left-0 bg-red-500 text-white text-center py-1">
-//         Giảm 20%
-//       </div>
-//       <div className="aspect-square overflow-hidden">
-//         <img
-//           className="w-[200px] h-full object-cover"
-//           src="https://images.seeklogo.com/logo-png/35/1/all-logo-png_seeklogo-358128.png"
-//           alt="Product image"
-//         />
-//       </div>
-//       <div className="p-3 bg-white flex flex-col justify-between h-full">
-//         <h3>Product Name</h3>
-//         <div className="flex justify-between items-center mt-2">
-//           <span className="text-red-500 font-bold">$199.99</span>
-//           <span className="text-gray-500 line-through text-sm">$249.99</span>
-//         </div>
-//       </div>
-//       <div className="flex justify-center items-center bg-gray-800 text-white py-2 rounded-b-lg">
-//         <span>0 mảnh</span>
-//         <span>0/10</span>
-//       </div>
-//       {isHovering && (
-//         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 bg-gray-800 flex items-center justify-center text-white text-lg font-bold">
-//           <span>Thêm vào giỏ hàng</span>
-//         </div>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default CardItem;
-
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import useCart from "../../../store/slices/cart";
+import ProductPreviewPopup from "./ProductPreviewPopup";
+//using
+//category trang chu
 interface CardItemProps {
   product: {
     productId: string;
@@ -70,32 +26,58 @@ interface CardItemProps {
     //updatedAt: Date;
   };
 }
-
 const CardItem = ({ product }: CardItemProps) => {
+  //console.log("productid", product.productId);
+  const { addToCart }: any = useCart();
+  const [isPreview, setIsPreview] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
+
   const handleMouseEnter = () => {
     setIsHovering(true);
   };
   const handleMouseLeave = () => {
     setIsHovering(false);
   };
+  const togglePreview = () => {
+    console.log("click preview");
+    setIsPreview(!isPreview);
+  };
+
   return (
     <div
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className="max-w-xs w-64 h-[500px] relative flex flex-col mx-auto bg-white rounded-lg shadow-lg p-4"
+      className="group max-w-xs w-full mx-auto h-full relative flex flex-col bg-white rounded-lg shadow-lg p-4"
     >
       {/* Discount and Play Button */}
-      <div className="relative h-64 overflow-hidden rounded-lg">
-        <img
-          src={product?.images[0]}
-          alt="Drum Set"
-          className="w-full object-cover rounded-lg"
-        />
-        <span className="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold rounded-full px-2 py-1">
+      <div className="relative h-64 //overflow-hidden rounded-lg">
+        <div className="relative w-full h-full overflow-hidden">
+          <img
+            src={product?.images[0]}
+            alt={product?.name}
+            className={`absolute w-full h-full object-cover rounded-lg transition-transform duration-500 ease-in-out ${
+              isHovering && product?.images.length > 1
+                ? "-translate-x-full"
+                : "translate-x-0"
+            }`}
+          />
+          {product?.images.length > 1 && (
+            <img
+              src={product?.images[1]}
+              alt={`${product?.name} - view 2`}
+              className={`absolute w-full h-full object-cover rounded-lg transition-transform duration-500 ease-in-out ${
+                isHovering ? "translate-x-0" : "translate-x-full"
+              }`}
+            />
+          )}
+        </div>
+        <span className="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold rounded-full px-2 py-1 z-10">
           -30%
         </span>
-        <button className="absolute top-2 right-2 bg-gray-800 text-white rounded-full p-1">
+        <button
+          onClick={togglePreview}
+          className="absolute top-2 right-2 bg-gray-800 text-white rounded-full p-1 z-10"
+        >
           <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
             <path d="M8 5v14l11-7z" />
           </svg>
@@ -161,14 +143,17 @@ const CardItem = ({ product }: CardItemProps) => {
         DxRxC: {product?.dimensions.width} x {product?.dimensions.height} x{" "}
         {product?.dimensions.length} cm
       </div>
-      {
-        /* Add to Cart Button */
-        isHovering && (
-          <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-lg w-[80%] font-bold py-2 px-4 rounded-lg hover:bg-red-500 cursor-pointer transition duration-300 ease-in-out">
-            Thêm vào giỏ hàng
-          </div>
-        )
-      }
+
+      <div
+        onClick={() => addToCart(product)}
+        className=" text-sm opacity-0 group-hover:opacity-100 group-hover:delay-400 absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white  w-[80%] font-bold py-2 px-4 rounded-lg hover:bg-red-500 cursor-pointer hover:delay-75 transition text-center duration-200 ease-in-out"
+      >
+        Thêm vào giỏ hàng
+      </div>
+
+      {isPreview && (
+        <ProductPreviewPopup product={product} onClose={togglePreview} />
+      )}
     </div>
   );
 };

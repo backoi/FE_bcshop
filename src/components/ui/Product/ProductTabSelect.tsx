@@ -4,7 +4,7 @@ const ProductTabSelect = () => {
   const [activeTab, setActiveTab] = useState("description");
 
   return (
-    <div className="mt-1">
+    <div className="shadow-lg rounded-lg">
       <div className="border-b border-gray-200">
         <nav className="-mb-px flex space-x-8">
           <button

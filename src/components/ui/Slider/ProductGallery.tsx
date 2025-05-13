@@ -36,22 +36,12 @@ const ProductGallery = () => {
       src: "https://picsum.photos/800",
       alt: "Mô hình kim loại lắp rapes 3D - Góc trên",
     },
-    {
-      id: 7,
-      src: "https://picsum.photos/800",
-      alt: "Mô hình kim loại lắp rapes 3D - Góc trên",
-    },
-    {
-      id: 8,
-      src: "https://picsum.photos/800",
-      alt: "Mô hình kim loại lắp rapes 3D - Góc trên",
-    },
   ];
 
   return (
     <div className="flex space-x-3 px-2 py-2">
       {/* Thumbnail gallery */}
-      <div className="flex flex-col space-y-2 overflow-hidden pb-2 w-1/4 max-h-[450px]">
+      <div className="flex flex-col space-y-2 overflow-auto pb-2 w-1/4 max-h-[550px]">
         {images.map((image, index) => (
           <button
             key={image.id}

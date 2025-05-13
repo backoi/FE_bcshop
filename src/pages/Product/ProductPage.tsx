@@ -5,18 +5,20 @@ import {
   BiMinus,
   BiPlus,
 } from "react-icons/bi";
-import ProductGallery from "../../components/ui/ProductGallery";
+//using
+import ProductGallery from "../../components/ui/Slider/ProductGallery";
 import { useState } from "react";
 import { CiShare2 } from "react-icons/ci";
 import { BsThunderbolt } from "react-icons/bs";
 import { MdThunderstorm } from "react-icons/md";
 import { IoFlash } from "react-icons/io5";
-import ProductFeatures from "../../components/ui/ProductFeature";
-import CouponItem from "../../components/ui/CouponItem";
-import ProductTabSelect from "../../components/ui/ProductTabSelect";
-import BlogCarousel from "../../components/ui/BlogCarosel";
-import ProductCarousel from "../../components/ui/ProductCarosel";
-import ProductScroll from "../../components/ui/ProductScroll";
+//them vao gio hang bang zustand
+import ProductFeatures from "../../components/ui/Product/ProductFeature";
+import CouponItem from "../../components/ui/Product/CouponItem";
+import ProductTabSelect from "../../components/ui/Product/ProductTabSelect";
+import BlogCarousel from "../../components/ui/Blog/BlogCarosel";
+import ProductCarousel from "../../components/ui/Slider/ProductCarosel";
+import ProductScroll from "../../components/ui/Slider/ProductScroll";
 
 //manh ghep   https://theme.hstatic.net/200000417685/1001040197/14/pcs_128.png?v=1173
 // do kho   https://theme.hstatic.net/200000417685/1001040197/14/level_128.png?v=1173
@@ -52,7 +54,7 @@ const ProductPage = () => {
         <BiChevronRight className="mx-2 h-4 w-4" />
         <span>MU Trâm Trung Kiếm Thanh Phượng</span>
       </nav>
-      <div className="bg-green-500 flex">
+      <div className="flex">
         <div className="traichiem5p w-full h-full">
           <ProductGallery />
         </div>
@@ -203,21 +205,19 @@ const ProductPage = () => {
           </div>
         </div>
       </div>
-      <div className="bg-green-400 w-full flex justify-between">
+      <div className=" w-full flex justify-between">
         <CouponItem></CouponItem>
         <CouponItem></CouponItem>
         <CouponItem></CouponItem>
       </div>
 
-      <div className="flex">
-        <div className="bg-gray-600 flex w-full justify-between ">
-          <div className="flex flex-3 p-4 flex-col gap-4 ">
-            <ProductTabSelect />
-            <ProductCarousel />
-          </div>
-          <div className="flex flex-1">
-            <ProductScroll />
-          </div>
+      <div className="flex mt-2 py-2">
+        <div className="flex flex-3 p-4 flex-col gap-4 ">
+          <ProductTabSelect />
+          <ProductCarousel />
+        </div>
+        <div className="flex flex-1 p-4">
+          <ProductScroll />
         </div>
       </div>
       {/* Modal for sharing */}
